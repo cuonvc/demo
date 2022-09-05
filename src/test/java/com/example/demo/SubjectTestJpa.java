@@ -20,7 +20,7 @@ public class SubjectTestJpa {
     @Test
     public void testCreateSubject() {
         Subject subject = new Subject();
-        subject.setSubjectName("subject 1");
+        subject.setSubjectName("subject 2");
         subjectRepository.save(subject);
     }
 

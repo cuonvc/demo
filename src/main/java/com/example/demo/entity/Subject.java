@@ -3,8 +3,11 @@ package com.example.demo.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +18,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "subjects")
+@FilterDef(name = "filterDelete",
+        parameters = @ParamDef(name = "isDeleted", type = "boolean"),
+        defaultCondition = "is_deleted = :isDeleted")
+@Filter(name = "filterDelete")
+//@SQLDelete(sql = "UPDATE subjects SET is_deleted = true WHERE id=?")
+//@Where(clause = "is_deleted=false")
 public class Subject {
 
     @Id
@@ -32,4 +41,7 @@ public class Subject {
     @JoinColumn(name = "major_id")
     @JsonBackReference
     private Major major;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
 }
