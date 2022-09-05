@@ -22,8 +22,8 @@ import java.util.Set;
         parameters = @ParamDef(name = "isDeleted", type = "boolean"),
         defaultCondition = "is_deleted = :isDeleted")
 @Filter(name = "filterDelete")
-//@SQLDelete(sql = "UPDATE subjects SET is_deleted = true WHERE id=?")
-//@Where(clause = "is_deleted=false")
+@SQLDelete(sql = "UPDATE subjects SET is_deleted = true WHERE id=?")
+@Where(clause = "is_deleted=false")
 public class Subject {
 
     @Id
