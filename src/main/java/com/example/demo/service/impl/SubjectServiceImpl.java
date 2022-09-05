@@ -26,13 +26,13 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     @Transactional
     public Subject deleteById(Integer id) {
-        Session session = entityManager.unwrap(Session.class);
-        Filter filter = session.enableFilter("filterDelete");
-        filter.setParameter("isDeleted", true);
+//        Session session = entityManager.unwrap(Session.class);
+//        Filter filter = session.enableFilter("filterDelete");
+//        filter.setParameter("isDeleted", true);
         //
         Subject subject = entityManager.find(Subject.class, id);
-
-        session.disableFilter("filterDelete");
+        entityManager.remove(subject);
+//        session.disableFilter("filterDelete");
 
         return subject;
 
