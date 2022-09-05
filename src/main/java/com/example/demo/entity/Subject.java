@@ -18,13 +18,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "subjects")
-@FilterDef(name = "filterDelete",
-        parameters = @ParamDef(name = "isDeleted", type = "boolean"),
-        defaultCondition = "is_deleted = :isDeleted")
-@Filter(name = "filterDelete")
 @SQLDelete(sql = "UPDATE subjects SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
-public class Subject {
+public class Subject extends AbstructEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

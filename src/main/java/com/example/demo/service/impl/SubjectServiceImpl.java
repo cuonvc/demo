@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
@@ -24,14 +26,15 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     @Transactional
     public Subject deleteById(Integer id) {
+        Session session = entityManager.unwrap(Session.class);
+        Filter filter = session.enableFilter("filterDelete");
+        filter.setParameter("isDeleted", true);
+        //
+        Subject subject = entityManager.find(Subject.class, id);
 
-//        Session session = entityManager.unwrap(Session.class);
-//        Filter filter = session.enableFilter("filterDelete");
-//        filter.setParameter("isDeleted", Boolean.TRUE);
-//
-//        Subject subject = entityManager.find(Subject.class, id);
-//        filter.setParameter("isDeleted", Boolean.TRUE);
-        subjectRepository.deleteById(id);
-        return null;
+        session.disableFilter("filterDelete");
+
+        return subject;
+
     }
 }
