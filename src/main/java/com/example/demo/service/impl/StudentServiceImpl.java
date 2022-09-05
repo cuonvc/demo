@@ -46,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public Student updateStudent(Student std) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         //enable an filter
         Session session = entityManager.unwrap(Session.class);
         Filter filter = session.enableFilter("testFilter");
@@ -118,6 +118,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    //using CriteriaBuilder
     public Subject getSubject(Integer idStudent) {
 //        Subject subjectByStudent = studentRepository.findSubjectByStudentId(idStudent)
 //                .orElseThrow(RuntimeException::new);
