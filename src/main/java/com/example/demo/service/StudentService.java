@@ -12,6 +12,7 @@ public interface StudentService {
     Student getStudent(String name);
     Subject getSubject(Integer idStudent);
     String getFullName(Integer id);
+    List<Student> findALl();
     void updateStudentByJPQL(Integer id, String newName);
 
     Student getStudentByHQL(Integer id);

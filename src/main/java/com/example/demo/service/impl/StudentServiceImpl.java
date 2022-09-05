@@ -1,27 +1,24 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.controller.StudentController;
 import com.example.demo.entity.Student;
 import com.example.demo.entity.Subject;
-import com.example.demo.entity.Teacher;
+import com.example.demo.entity.Student_;
 import com.example.demo.repository.RepoTestHQL;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.repository.TeacherRepository;
 import com.example.demo.service.StudentService;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.Filter;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import java.util.*;
 
 @Service
@@ -91,24 +88,51 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     public Student createStudent(Student student) {
 
-        student.setFullName("Test");
-//        entityManager.persist(student);
+//        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+//        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Student.class);
+//        Root<Student> studentRoot = criteriaQuery.from(Student.class);
+//        EntityType<Student> Student_ = studentRoot.getModel();
+
+        //or
+        Metamodel metamodel = entityManager.getMetamodel();
+        EntityType<Student> Student_ = metamodel.entity(Student.class);
+
+        //...
 
         return null;
     }
 
     @Override
     public Student getStudent(String name) {
-        Student student = studentRepository.findStudentByName(name).orElseThrow(RuntimeException::new);
+//        Student student = studentRepository.findStudentByName(name).orElseThrow(RuntimeException::new);
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
+        Root<Student> studentRoot = criteriaQuery.from(Student.class);
+
+        criteriaQuery.select(studentRoot).where(studentRoot.get(Student_.fullName).in(name));
+        TypedQuery<Student> query = entityManager.createQuery(criteriaQuery);
+
+        Student student = query.getSingleResult();
         return student;
     }
 
     @Override
     public Subject getSubject(Integer idStudent) {
-        Subject subjectByStudent = studentRepository.findSubjectByStudentId(idStudent)
-                .orElseThrow(RuntimeException::new);
-        subjectByStudent.setStudents(null);
-        return subjectByStudent;
+//        Subject subjectByStudent = studentRepository.findSubjectByStudentId(idStudent)
+//                .orElseThrow(RuntimeException::new);
+//        subjectByStudent.setStudents(null);
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
+        Root<Student> studentRoot = criteriaQuery.from(Student.class);
+
+        criteriaQuery.select(studentRoot).where(studentRoot.get(Student_.id).in(idStudent));
+        TypedQuery<Student> query = entityManager.createQuery(criteriaQuery);
+        Student student = query.getSingleResult();
+
+        Set<Subject> subjects = student.getSubjects();
+        Subject[] arrSubJ = subjects.toArray(new Subject[subjects.size()]);
+        return arrSubJ[0];
     }
 
     @Override
@@ -125,5 +149,19 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentByHQL(Integer id) {
         return repoTestHQL.getStudent(id);
+    }
+
+    @Override
+    //test with CriteriaBuilder
+    public List<Student> findALl() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
+        Root<Student> studentRoot = criteriaQuery.from(Student.class);
+
+        criteriaQuery.select(studentRoot);
+        TypedQuery<Student> query = entityManager.createQuery(criteriaQuery);
+        List<Student> allStudents = query.getResultList();
+
+        return allStudents;
     }
 }

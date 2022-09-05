@@ -10,6 +10,7 @@ import org.hibernate.annotations.ParamDef;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
+import javax.persistence.metamodel.SingularAttribute;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;

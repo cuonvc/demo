@@ -42,6 +42,11 @@ public class StudentController {
         return studentService.getFullName(id);
     }
 
+    @GetMapping("/students")
+    public List<Student> getAllStudent() {
+        return studentService.findALl();
+    }
+
     @PutMapping("/students/{id}")
     public void updateFullName(@PathVariable(name = "id") Integer id,
                                @RequestParam(value = "newName") String newName) {
