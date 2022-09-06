@@ -1,5 +1,6 @@
 package com.example.demo.testClient;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -10,47 +11,63 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ClientRequest {
 
     public static void main(String[] args) {
         //get data
-
-//        try {
-//            URL url = new URL("https://jsonplaceholder.typicode.com/posts");
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("GET");
-//            connection.setRequestProperty("Accept", "application/json");
-//
-//            if (connection.getResponseCode() != 200) {
-//                throw new RuntimeException("Failed error code: " + connection.getResponseCode());
-//            }
-//
-//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//
-//            String output;
-//            System.out.println("Output from Server .... \n");
-//            while ((output = bufferedReader.readLine()) != null) {
-//                System.out.println(output);
-//            }
-//
-//            connection.disconnect();
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException exception) {
-//            exception.printStackTrace();
-//        }
-
+        List<String> res = getUsers();
+        System.out.println(res);
         //post data
 
-        int number = 20;  //size of table users (start with 0)
-        Random random = new Random();
-        int numRand = random.nextInt(number);  //user id
-        String usename = "";  //get from user id
-        String password = ""; //get from user id
-        loginAccount(usename, password);
+//        int number = 20;  //size of table users (start with 0)
+//        Random random = new Random();
+//        int numRand = random.nextInt(number);  //user id
+//        String usename = "";  //get from user id
+//        String password = ""; //get from user id
+//        loginAccount(usename, password);
 
+    }
+
+    private static List<String> getUsers() {
+        try {
+            URL url = new URL("https://nvc-rest-blog.herokuapp.com/api/v1/profiles/role/2");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept", "application/json");
+            String accessToken = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjdW9uZ2FkbWlubnZjIiwiaWF0IjoxNjYyNDMxMzA5LCJleHAiOjE2NjMwNzIxMDl9.O8eQ-nRqEWEDp0ODyh7HB0FimUV8Sg42iJjEYkP0qVztdARizSR9ELM6P7De0TDX9BHdxIsuhkLKuYzg2JarcQ";
+            connection.setRequestProperty("Authorization", accessToken);
+
+            if (connection.getResponseCode() != 200) {
+                throw new RuntimeException("Failed error code: " + connection.getResponseCode());
+            }
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            String output;
+            System.out.println("Output from Server .... \n");
+            while ((output = bufferedReader.readLine()) != null) {
+                System.out.println(output);
+                JSONObject jsonObject = new JSONObject(output);
+                JSONArray jsonArray = new JSONArray(jsonObject.get("content").toString());
+                return IntStream.range(0, jsonArray.length())
+                        .mapToObj(index -> ((JSONObject) jsonArray.get(index)).optString("id"))
+                        .collect(Collectors.toList());
+
+            }
+
+            connection.disconnect();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        return null;
     }
 
     private static void loginAccount(String username, String password) {
