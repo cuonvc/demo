@@ -1,0 +1,46 @@
+09/12/2022 01:41:48 PM|INFO |DemoApplication               | test logging
+09/12/2022 01:42:06 PM|INFO |StudentService                | test logging
+09/12/2022 01:42:06 PM|INFO |StudentService                | student_3
+09/12/2022 01:42:06 PM|WARN |StudentService                | test Warrning
+09/12/2022 01:42:46 PM|INFO |StudentService                | test logging
+09/12/2022 01:42:46 PM|INFO |StudentService                | student_3
+09/12/2022 01:42:46 PM|WARN |StudentService                | test Warrning
+09/12/2022 01:49:19 PM|INFO |DemoApplication               | test logging
+09/12/2022 01:54:24 PM|INFO |DemoApplication               | test logging
+09/12/2022 01:59:31 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:03:38 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:07:21 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:10:00 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:10:06 PM|ERROR|StudentService                | Student not found !
+09/12/2022 02:10:52 PM|ERROR|StudentService                | Student not found !
+09/12/2022 02:12:16 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:12:20 PM|ERROR|StudentService                | Student not found !
+09/12/2022 02:13:26 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:24:17 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:25:38 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:31:10 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:32:47 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:40:27 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:50:22 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:51:21 PM|INFO |DemoApplication               | test logging
+09/12/2022 02:58:56 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:03:30 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:05:06 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:08:25 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:10:41 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:10:46 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:13:15 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:13:34 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:19:07 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:19:10 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:20:25 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:21:34 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:21:48 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:23:03 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:23:07 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:24:15 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:32:22 PM|INFO |DemoApplication               | test logging
+09/12/2022 03:32:28 PM|ERROR|StudentService                | Student not found !
+09/12/2022 03:46:01 PM|ERROR|StudentService                | Student not found !
+
+spring cloud stream + kafka binder

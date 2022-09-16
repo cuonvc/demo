@@ -21,15 +21,17 @@ public class ClientRequest {
 
     public static void main(String[] args) {
         //get data
-        List<String> res = getUsers();
-        System.out.println(res);
-        //post data
+//        List<String> res = getUsers();  //list user id
+//        System.out.println(res.get(0));
 
-//        int number = 20;  //size of table users (start with 0)
+        //post data
+//        int number = res.size();  //size of table users (start with 0)
 //        Random random = new Random();
 //        int numRand = random.nextInt(number);  //user id
-//        String usename = "";  //get from user id
-//        String password = ""; //get from user id
+//        //get user info by user id
+
+//        String usename = "cuongadminnvc";  //get from user id
+//        String password = "cuongnvc"; //get from user id
 //        loginAccount(usename, password);
 
     }
@@ -56,7 +58,7 @@ public class ClientRequest {
                 JSONObject jsonObject = new JSONObject(output);
                 JSONArray jsonArray = new JSONArray(jsonObject.get("content").toString());
                 return IntStream.range(0, jsonArray.length())
-                        .mapToObj(index -> ((JSONObject) jsonArray.get(index)).optString("id"))
+                        .mapToObj(index -> ((JSONObject) jsonArray.get(index)).optString("usernameOrEmail"))
                         .collect(Collectors.toList());
 
             }
@@ -128,7 +130,7 @@ public class ClientRequest {
             conn.setRequestProperty("Authorization", accessToken);
 
 
-            String input = "{\"title\":\"Test title1\",\"description\":\"Test description\",\"content\":\"test content\"}";
+            String input = "{\"title\":\"Test title2\",\"description\":\"Test description\",\"content\":\"test content\"}";
 
             OutputStream os = conn.getOutputStream();
             os.write(input.getBytes());

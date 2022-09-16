@@ -3,13 +3,13 @@ package com.example.demo.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.FilterJoinTable;
-import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.*;
+import org.hibernate.sql.Update;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.metamodel.SingularAttribute;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -46,6 +46,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "students")
+@SQLDelete(sql = "UPDATE Students SET is_deleted = true WHERE id=?")
 public class Student {
 
     @Id
@@ -64,7 +65,7 @@ public class Student {
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "student_subject",
             joinColumns = @JoinColumn(name = "student_id"),

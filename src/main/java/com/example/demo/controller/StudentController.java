@@ -5,6 +5,7 @@ import com.example.demo.entity.Subject;
 import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.messaging.Message;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,11 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @PostMapping("/test")
+    public void test() {
+        studentService.createStudent(null);
+    }
 
     @PutMapping("/update/{id}")
     public Student updateStudent(@PathVariable(name = "id") Integer id,
@@ -56,5 +62,10 @@ public class StudentController {
     @GetMapping("/hql/students/{id}")
     public Student getStudentByHQL(@PathVariable("id") Integer id) {
         return studentService.getStudentByHQL(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void softDelete(@PathVariable(name = "id") Integer id) {
+        studentService.deleteStudent(id);
     }
 }

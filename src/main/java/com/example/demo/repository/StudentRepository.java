@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Integer> {
+public interface StudentRepository extends JpaRepository<Student, Integer>, CustomRepo {
 
     @Query(value = "SELECT distinct s from Student s JOIN FETCH s.subjects j WHERE s.fullName =:fullName")
     Optional<Student> findStudentByName(String fullName);

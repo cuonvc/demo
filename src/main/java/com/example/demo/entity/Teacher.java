@@ -28,7 +28,7 @@ public class Teacher {
     private Integer age;
 
     @ManyToMany(mappedBy = "teachers")
-    @JsonBackReference
+    @JsonManagedReference
     private Set<Student> students = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

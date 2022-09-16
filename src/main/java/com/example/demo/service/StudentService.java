@@ -16,4 +16,5 @@ public interface StudentService {
     void updateStudentByJPQL(Integer id, String newName);
 
     Student getStudentByHQL(Integer id);
+    void deleteStudent(Integer id);
 }
