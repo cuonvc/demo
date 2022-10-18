@@ -172,11 +172,15 @@ public class StudentServiceImpl implements StudentService {
 //                .orElseThrow(RuntimeException::new);
 //        subjectByStudent.setStudents(null);
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        criteriaBuilder.parameter(Student.class, "subjectParam");
+
         CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
         Root<Student> studentRoot = criteriaQuery.from(Student.class);
 
-        criteriaQuery.select(studentRoot).where(studentRoot.get(Student_.id).in(idStudent));
-        TypedQuery<Student> query = entityManager.createQuery(criteriaQuery);
+        criteriaQuery.select(studentRoot).where(criteriaBuilder.equal(studentRoot.get("id"),
+                criteriaBuilder.parameter(Integer.class, "idStd")));
+        TypedQuery<Student> query = entityManager.createQuery(criteriaQuery)
+                .setParameter("idStd", idStudent);
         Student student = query.getSingleResult();
 
         Set<Subject> subjects = student.getSubjects();

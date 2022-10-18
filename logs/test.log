@@ -42,5 +42,3 @@
 09/12/2022 03:32:22 PM|INFO |DemoApplication               | test logging
 09/12/2022 03:32:28 PM|ERROR|StudentService                | Student not found !
 09/12/2022 03:46:01 PM|ERROR|StudentService                | Student not found !
-
-spring cloud stream + kafka binder

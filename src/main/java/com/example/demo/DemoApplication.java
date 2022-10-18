@@ -11,10 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
-import org.springframework.messaging.Message;
-import reactor.core.publisher.Flux;
 
 import java.util.Random;
 import java.util.function.Function;
@@ -27,8 +24,8 @@ public class DemoApplication implements CommandLineRunner {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Autowired
-	private StreamBridge streamBridge;
+//	@Autowired
+//	private StreamBridge streamBridge;
 
 	@Override
 	public void run(String... args) throws Exception, RuntimeException {
@@ -37,13 +34,13 @@ public class DemoApplication implements CommandLineRunner {
 //		log.info("test logging");
 
 		//test logging kafka
-		reduceMachineProductMap();
-		int number;
-		while (true) {
-			Random random = new Random();
-			number = random.nextInt(10);
-			streamBridge.send("initialTopic", number);
-		}
+//		reduceMachineProductMap();
+//		int number;
+//		while (true) {
+//			Random random = new Random();
+//			number = random.nextInt(10);
+//			streamBridge.send("initialTopic", number);
+//		}
 	}
 
 	@Bean

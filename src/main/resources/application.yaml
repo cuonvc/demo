@@ -16,27 +16,27 @@ spring:
         generate_statistics: true
         format_sql: true
 
-  cloud:
-    function:
-      definition: reduceMachineProductMap
-    stream:
-      kafka:
-        binder:
-#          default: localhost
-#            ex: - localhost:9091
-#                - localhost:9092
-          brokers: localhost
-#          default: 9092
-          defaultBrokerPort: 9092
-      bindings:
-        reduceMachineProductMap-in-0:
-#          topic send message from producer
-          destination: initialTopic
-        reduceMachineProductMap-out-0:
-#          topic send message from consumer
-          destination: topicReturn
-#        changeMachineStatus-in-0:
-#          destination: machineNetworkConnectionChange
+#  cloud:
+#    function:
+#      definition: reduceMachineProductMap
+#    stream:
+#      kafka:
+#        binder:
+##          default: localhost
+##            ex: - localhost:9091
+##                - localhost:9092
+#          brokers: localhost
+##          default: 9092
+#          defaultBrokerPort: 9092
+#      bindings:
+#        reduceMachineProductMap-in-0:
+##          topic send message from producer
+#          destination: initialTopic
+#        reduceMachineProductMap-out-0:
+##          topic send message from consumer
+#          destination: topicReturn
+##        changeMachineStatus-in-0:
+##          destination: machineNetworkConnectionChange
   jackson:
 #    config hidden object null
     default-property-inclusion: non_absent
